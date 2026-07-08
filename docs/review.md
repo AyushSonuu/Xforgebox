@@ -22,14 +22,6 @@ An open-source, self-hostable runtime layer is meaningfully different from hoste
 
 Snapshots and artifacts match real agent workflows: resume state, export outputs, compare runs, and preserve results.
 
-### Shared resource pool
-
-The project becomes more valuable if it lets many users and applications share CPU, memory, storage, caches, workers, databases, and network capacity while preserving workspace and tenant isolation.
-
-### LangChain compatibility
-
-V1 becomes much more useful if Forge can be used directly as a LangChain Deep Agents sandbox backend instead of requiring custom integration code.
-
 ## Main Risks
 
 ### Risk 1: Scope explosion
@@ -62,12 +54,6 @@ Making package managers a core feature can create huge maintenance burden.
 
 Recommendation: treat package installation as normal command execution in MVP. Add optional helpers later.
 
-### Risk 6: Ignoring latency
-
-A technically correct scheduler that starts workspaces slowly will feel bad to agent developers and end users.
-
-Recommendation: track latency as a first-class metric from the beginning, even if advanced warm pools and autoscaling are delivered later.
-
 ## Interface Review
 
 ### Keep
@@ -96,13 +82,11 @@ These may be useful later, but they should not define the MVP.
 3. Command execution with streaming logs.
 4. Snapshot and restore.
 5. Artifact export.
-6. LangChain `ForgeSandbox` adapter.
-7. SDK and CLI polish.
-8. Firecracker runtime driver.
-9. S3-compatible workspace store.
-10. Remote workers and scheduler.
-11. Autoscaling and latency-aware placement.
-12. Stable extension API.
+6. SDK and CLI polish.
+7. Firecracker runtime driver.
+8. S3-compatible workspace store.
+9. Remote workers and scheduler.
+10. Stable extension API.
 
 ## Final Verdict
 

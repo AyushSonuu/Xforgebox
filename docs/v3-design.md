@@ -34,7 +34,6 @@ Scheduling inputs:
 - Tenant policy.
 - Worker health.
 - Cost or priority.
-- Expected startup latency and queue wait time.
 
 ### Kubernetes Runtime Driver
 
@@ -47,16 +46,7 @@ Responsibilities:
 - Apply resource limits.
 - Stream logs.
 - Clean up workloads.
-- Integrate with cluster autoscaling where available.
 - Report Kubernetes-specific capabilities.
-
-### Autoscaling
-
-Forge should scale workers horizontally based on queue depth, active executions, CPU and memory pressure, workspace restore time, cache hit rate, and latency service-level objectives. Autoscaling should support both warm pools for low-latency startup and cold expansion for cost efficiency.
-
-### Latency Management
-
-Latency should be measured across the whole execution path: API admission, scheduling, workspace restore, image preparation, environment startup, command startup, log streaming, and artifact export. The scheduler should prefer warm workers, nearby workspace data, hot caches, and runtime pools when latency matters.
 
 ### Policy Engine
 
@@ -124,5 +114,5 @@ V3 is complete when:
 - Multiple workers can run workspaces.
 - Scheduling decisions consider runtime capabilities and resource availability.
 - Operators can enforce policy centrally.
-- Observability is sufficient for production debugging, capacity planning, and latency tuning.
+- Observability is sufficient for production debugging.
 - Extension APIs are stable enough for third-party implementations.

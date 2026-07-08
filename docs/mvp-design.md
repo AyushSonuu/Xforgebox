@@ -224,45 +224,6 @@ class EventBus(Protocol):
         ...
 ```
 
-## LangChain Deep Agents Compatibility
-
-V1 must be compatible with LangChain Deep Agents sandboxes. Forge should provide a `ForgeSandbox` adapter that can be passed directly as the `backend` argument when creating a Deep Agent.
-
-The adapter should support:
-
-- `execute(command: str)` for shell execution inside the Forge workspace,
-- filesystem operations used by Deep Agents tools,
-- `upload_files(...)` for seeding the workspace before an agent run,
-- `download_files(...)` for retrieving artifacts after an agent run,
-- thread-scoped and assistant-scoped workspace reuse,
-- TTL cleanup for idle sandboxes.
-
-The V1 implementation should follow the sandbox-as-tool pattern: the agent runs outside Forge, while file and shell operations are delegated into a Forge workspace. This keeps secrets and agent state outside the sandbox by default.
-
-### LangChain Adapter Example
-
-```python
-from deepagents import create_deep_agent
-from forge import ForgeClient
-from forge.langchain import ForgeSandbox
-
-forge_client = ForgeClient()
-
-backend = ForgeSandbox.from_thread(
-    client=forge_client,
-    thread_id="thread-123",
-    image="python:3.13",
-    runtime="docker",
-    idle_ttl_seconds=3600,
-)
-
-agent = create_deep_agent(
-    model="google_genai:gemini-3.5-flash",
-    backend=backend,
-    system_prompt="You are a coding assistant with Forge sandbox access.",
-)
-```
-
 ## MVP User Flows
 
 ### Create Workspace

@@ -6,7 +6,7 @@ Forge is an open-source workspace runtime for AI agents: persistent filesystems,
 
 AI agents need more than one-shot command execution. They need real workspaces where they can create files, install dependencies, run tests, preserve state, export artifacts, and resume later.
 
-Forge aims to provide that runtime layer while allowing different execution backends over time. Long term, Forge should let many applications and users share a common resource pool with isolation, quotas, autoscaling, and latency-aware placement:
+Forge aims to provide that runtime layer while allowing different execution backends over time:
 
 - Docker for local development and quick adoption.
 - Firecracker for stronger production isolation.
@@ -18,9 +18,6 @@ Forge aims to provide that runtime layer while allowing different execution back
 - [Product Definition](docs/product.md)
 - [Roadmap](docs/roadmap.md)
 - [MVP Design](docs/mvp-design.md)
-- [MVP Implementation Plan](docs/mvp-implementation-plan.md)
-- [High-level Design](docs/high-level-design.md)
-- [Low-level Design](docs/low-level-design.md)
 - [V2 Design Direction](docs/v2-design.md)
 - [V3 Design Direction](docs/v3-design.md)
 - [Architecture Review](docs/review.md)

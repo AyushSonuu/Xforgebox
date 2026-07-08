@@ -53,30 +53,7 @@ Forge should sit above infrastructure backends and make them usable as agent wor
 5. **Small stable core**: The core should stay narrow: workspaces, environments, executions, snapshots, artifacts, and events.
 6. **Extensible after validation**: Internal interfaces should be clean first; external plugin APIs should come after multiple implementations prove the shape.
 7. **Python-first implementation**: The reference implementation, CLI, and first SDK should be built in Python.
-8. **Shared resource pool**: Many users should share compute, storage, cache, and service capacity safely through quotas and isolation.
-9. **Latency-aware scale**: Future schedulers should optimize for startup latency, data locality, warm pools, and autoscaling.
-10. **Do not overclaim security**: Forge can provide isolation controls, but each runtime must document its actual security boundary.
-
-## Shared Resource Pool
-
-A central product goal is that Forge should let many applications, tenants, and users share the same underlying infrastructure pool while keeping their workspaces isolated.
-
-Shared infrastructure may include:
-
-- CPU and memory capacity.
-- Local and remote disk capacity.
-- Runtime workers.
-- Snapshot and artifact storage.
-- Dependency and model cache volumes.
-- Network egress capacity.
-- Databases and metadata stores.
-- Secret-management systems.
-
-Isolation should remain per workspace, tenant, execution, and policy boundary. Sharing infrastructure must not imply sharing files, secrets, process state, or trust boundaries.
-
-The long-term target is not only thousands of users. Forge should be designed so future control planes can scale to millions of users by using horizontal workers, autoscaling, queue-based backpressure, regional placement, cache locality, and strict tenant quotas.
-
-Latency is a first-class product requirement. The scheduler should optimize not only for capacity, but also for startup time, data locality, warm runtime pools, cache hits, and geographic proximity.
+8. **Do not overclaim security**: Forge can provide isolation controls, but each runtime must document its actual security boundary.
 
 ## Core Concepts
 
@@ -152,4 +129,3 @@ Forge is successful if developers can:
 6. Run locally with Docker.
 7. Upgrade to stronger isolation with Firecracker without rewriting agent code.
 8. Use the same API across local, secure, and distributed deployments.
-9. Use Forge directly as a LangChain Deep Agents sandbox backend in V1.
