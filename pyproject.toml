@@ -52,6 +52,13 @@ target-version = "py314"
 select = ["E", "F", "W", "I", "B", "UP", "SIM", "TID"]
 ignore = ["E501"]
 
+[tool.ruff.lint.per-file-ignores]
+# FastAPI Depends()/Query() etc. must live in argument defaults.
+"src/forge/server/routes/*.py" = ["B008"]
+# Typer.Option() lives in argument defaults by design.
+"src/forge/daemon.py" = ["B008"]
+"src/forge/cli.py" = ["B008"]
+
 [tool.mypy]
 python_version = "3.14"
 strict = true
@@ -70,4 +77,9 @@ addopts = "-ra --strict-markers"
 markers = [
   "integration: requires docker daemon",
   "e2e: end-to-end deep agents flow",
+]
+
+[dependency-groups]
+dev = [
+    "asgi-lifespan>=2.1.0",
 ]
