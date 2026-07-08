@@ -106,13 +106,12 @@ Primary goal: make Forge usable across teams, clusters, and heterogeneous infras
 
 - Kubernetes runtime driver.
 - Remote worker model.
-- Scheduler with placement based on resources, data locality, runtime capabilities, latency, and policy.
+- Scheduler with placement based on resources, data locality, runtime capabilities, and policy.
 - Multi-node workspace coordination.
-- Autoscaling worker pools based on queue depth, resource pressure, and latency targets.
 - Incremental sync for large workspaces.
 - Policy engine for network, secrets, resources, and allowed images.
 - Stable internal extension interfaces.
-- Observability: metrics, traces, structured logs, event export, and latency histograms.
+- Observability: metrics, traces, structured logs, and event export.
 - Role-based access control.
 - Workspace templates.
 
@@ -135,8 +134,6 @@ Primary goal: turn proven interfaces into a stable ecosystem.
 - Reference implementations for common backends.
 - Extension registry.
 - Compatibility matrix.
-- Multi-region control plane patterns for very large deployments.
-- Autoscaling and capacity-planning guides.
 - Additional language-specific agent SDK helpers after the Python SDK is stable.
 
 ### Standardization Criteria
@@ -148,10 +145,6 @@ Forge should only publish a specification when:
 - The API has survived real usage.
 - Backward compatibility rules are clear.
 - Conformance tests exist.
-
-### Long-term Scale Target
-
-Forge should be designed so mature deployments can eventually support millions of users across shared compute, storage, and runtime pools. This is not an MVP promise; it is a roadmap constraint that should influence scheduler design, metadata storage, eventing, autoscaling, quota enforcement, regional placement, and latency budgets.
 
 ## High-level Timeline Guidance
 

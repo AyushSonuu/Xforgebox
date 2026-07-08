@@ -22,10 +22,6 @@ An open-source, self-hostable runtime layer is meaningfully different from hoste
 
 Snapshots and artifacts match real agent workflows: resume state, export outputs, compare runs, and preserve results.
 
-### Shared resource pool
-
-The project becomes more valuable if it lets many users and applications share CPU, memory, storage, caches, workers, databases, and network capacity while preserving workspace and tenant isolation.
-
 ## Main Risks
 
 ### Risk 1: Scope explosion
@@ -57,12 +53,6 @@ Recommendation: clearly document runtime-specific security boundaries and positi
 Making package managers a core feature can create huge maintenance burden.
 
 Recommendation: treat package installation as normal command execution in MVP. Add optional helpers later.
-
-### Risk 6: Ignoring latency
-
-A technically correct scheduler that starts workspaces slowly will feel bad to agent developers and end users.
-
-Recommendation: track latency as a first-class metric from the beginning, even if advanced warm pools and autoscaling are delivered later.
 
 ## Interface Review
 
@@ -96,8 +86,7 @@ These may be useful later, but they should not define the MVP.
 7. Firecracker runtime driver.
 8. S3-compatible workspace store.
 9. Remote workers and scheduler.
-10. Autoscaling and latency-aware placement.
-11. Stable extension API.
+10. Stable extension API.
 
 ## Final Verdict
 
