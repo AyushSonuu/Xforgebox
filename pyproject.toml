@@ -4,7 +4,7 @@ version = "0.1.0.dev0"
 description = "Resource-pooled workspace runtime for AI agents."
 readme = "README.md"
 license = { file = "LICENSE" }
-requires-python = ">=3.11"
+requires-python = ">=3.14"
 authors = [{ name = "Forge contributors" }]
 keywords = ["ai", "agents", "sandbox", "workspace", "runtime", "langchain"]
 
@@ -46,14 +46,14 @@ packages = ["src/forge"]
 
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "SIM", "TID"]
 ignore = ["E501"]
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.14"
 strict = true
 warn_unused_ignores = true
 disallow_untyped_defs = true
