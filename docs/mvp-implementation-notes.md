@@ -40,7 +40,7 @@ async with pool.session(workspace_id="ws_123", image="python:3.14-slim") as sess
 |---|---|---|---|
 | 01 | `feat/01-scaffold` | done | main |
 | 02a | `feat/02a-python314-and-session-design` | in progress | — |
-| 02 | `feat/02-metastore` | queued | — |
+| 02 | `feat/02-metastore` | done | main |
 | 03 | `feat/03-workspace-store` | queued | — |
 | 04 | `feat/04-docker-driver` | queued | — |
 | 05 | `feat/05-pool` | queued | — |
