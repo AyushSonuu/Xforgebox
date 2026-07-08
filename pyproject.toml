@@ -18,6 +18,7 @@ dependencies = [
   "typer>=0.12",
   "zstandard>=0.23",
   "anyio>=4.4",
+  "deepagents>=0.6.12",
 ]
 
 [project.optional-dependencies]

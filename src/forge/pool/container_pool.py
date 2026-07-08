@@ -304,21 +304,37 @@ class ContainerPool:
             sp.idle.put_nowait(entry)
 
     async def _release(self, sp: _SubPool, env: EnvironmentHandle) -> None:
-        """Return an env to the idle queue (best effort)."""
+        """Return an env to the idle queue (best effort).
+
+        Holds the container's slot in ``in_use`` until we've decided its
+        fate — otherwise a concurrent acquire in step 2 sees room and
+        spawns a new env, blowing past ``max_size``.
+        """
+        # Shutdown path: destroy without ever putting back.
+        if self._closed:
+            async with sp.lock:
+                sp.in_use.discard(env.id)
+            with contextlib.suppress(Exception):
+                await self._driver.destroy_environment(env.id)
+            return
+
+        # Health check while the env is still counted in in_use. This keeps
+        # sp.total accurate for anyone else trying to acquire.
+        alive = False
+        try:
+            alive = await self._driver.health_check(env.id)
+        except Exception:
+            alive = False
+
         async with sp.lock:
             sp.in_use.discard(env.id)
-        if self._closed:
+            if alive:
+                sp.idle.put_nowait(_IdleEntry(env=env, idle_since=time.monotonic()))
+            else:
+                sp.total_kills += 1
+        if not alive:
             with contextlib.suppress(Exception):
                 await self._driver.destroy_environment(env.id)
-            return
-        # Health check on release too — if the container went bad during
-        # exec, no point stashing it.
-        if not await self._driver.health_check(env.id):
-            sp.total_kills += 1
-            with contextlib.suppress(Exception):
-                await self._driver.destroy_environment(env.id)
-            return
-        sp.idle.put_nowait(_IdleEntry(env=env, idle_since=time.monotonic()))
 
     async def _create_env(self, sp: _SubPool) -> EnvironmentHandle:
         """Create one new environment with the standard workspaces bind mount."""

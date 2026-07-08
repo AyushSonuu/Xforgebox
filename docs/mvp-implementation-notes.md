@@ -46,7 +46,29 @@ async with pool.session(workspace_id="ws_123", image="python:3.14-slim") as sess
 | 05 | `feat/05-pool` | done | main |
 | 06 | `feat/06-executions` | done | main |
 | 08 | `feat/08-snapshots` | done | main |
-| 07 | `feat/07-http` | in progress | — |
+| 07 | `feat/07-http` | done | main |
+| 09/10/11/12 | `feat/09-sdk-10-langchain-11-cli-12-demo` | done | main |
+
+## Amendment A3 — Deep-Agents `BaseSandbox` used directly
+
+**When:** wave 2, branch 10.
+
+**Change:** the LangChain adapter (`forge.langchain.ForgeSandbox`) subclasses
+:class:`deepagents.backends.sandbox.BaseSandbox` rather than defining a
+Forge-flavoured ad-hoc protocol. `BaseSandbox` already provides defaults for
+`ls`/`read`/`write`/`edit`/`glob`/`grep` implemented on top of the abstract
+`execute()` / `upload_files()` / `download_files()` primitives, so the adapter
+only supplies those three plus the `id` property. Forge is async-native, so we
+also override `aexecute` / `aupload_files` / `adownload_files` to avoid the
+default `asyncio.to_thread` wrapping.
+
+Consequences:
+- `create_deep_agent(model=..., backend=ForgeSandbox(...))` works with zero
+  glue code.
+- Every future Deep-Agents backend feature (e.g. new file operations) is
+  inherited for free.
+- We keep the door open for a future `deepagents.middleware`-based Forge
+  workflow.
 | 05 | `feat/05-pool` | queued | — |
 | 06 | `feat/06-executions` | queued | — |
 | 07 | `feat/07-http` | queued | — |
